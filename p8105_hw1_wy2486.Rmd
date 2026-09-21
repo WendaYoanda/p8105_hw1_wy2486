@@ -32,4 +32,39 @@ ggplot(data = penguins, aes(
 ggsave("penguins_scatterplot.png")
 ```
 
+# Problem 2
 
+```{r}
+problem2_df = tibble(
+  random_sample = rnorm(10),
+  logical_vector = random_sample > 0,
+  character_vector = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  factor_vector = factor(c("low", "medium", "high", "low", "medium",
+                           "high", "low", "medium", "high", "low"))
+)
+
+problem2_df
+```
+
+```{r}
+mean(pull(problem2_df, random_sample))
+
+mean(pull(problem2_df, logical_vector))
+
+mean(pull(problem2_df, character_vector))
+
+mean(pull(problem2_df, factor_vector))
+```
+
+The mean calculation works for the numeric and logical variables but does not work for the character and factor variables. For the logical variable, R treats TRUE as 1 and FALSE as 0; therefore, its mean represents the proportion of values that are TRUE. The character and factor variables are not numeric or logical, so mean() returns NA.
+
+
+```{r, results = "hide", warning = FALSE}
+as.numeric(pull(problem2_df, logical_vector))
+
+as.numeric(pull(problem2_df, character_vector))
+
+as.numeric(pull(problem2_df, factor_vector))
+```
+
+Applying as.numeric() to the logical variable converts TRUE to 1 and FALSE to 0. Applying it to the character variable produces NA because the character values cannot be converted to numbers. Applying it to the factor variable returns the numeric codes corresponding to its factor levels rather than meaningful numerical values. This helps explain why the mean works for the logical variable but not for the character or factor variables.
