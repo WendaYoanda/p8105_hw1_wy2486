@@ -15,3 +15,21 @@ library(tidyverse)
 ```{r}
 data("penguins", package = "palmerpenguins")
 ```
+The `penguins` dataset contains information on penguins from three species: Adelie, Gentoo, and Chinstrap, observed on the Torgersen, Biscoe, and Dream islands. Important variables include species, island, bill length, bill depth, flipper length, body mass, sex, and year.
+
+The dataset contains `r nrow(penguins)` observations and `r ncol(penguins)` variables.
+
+The mean flipper length is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 2)` mm.
+
+```{r}
+ggplot(data = penguins, aes(
+  x = bill_length_mm,
+  y = flipper_length_mm,
+  color = species
+)) +
+  geom_point()
+
+ggsave("penguins_scatterplot.png")
+```
+
+
